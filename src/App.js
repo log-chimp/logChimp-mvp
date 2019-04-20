@@ -1,39 +1,108 @@
-import React, { Component } from 'react';
-import fire from './fire';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+import firebase from 'firebase'
+import fire from './fire'
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { messages: [] }; // <- set up react state
+export default class App extends React.Component {
+  // The component's Local state.
+  constructor () {
+    super()
+    
+    this.state = {
+      isSignedIn: false, // Local signed-in state.
+      email: '',
+      password: ''
+    }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
-  componentWillMount(){
-    /* Create reference to messages in Firebase Database */
-    let messagesRef = fire.database().ref('messages').orderByKey().limitToLast(100);
-    messagesRef.on('child_added', snapshot => {
-      /* Update React state when message is added at Firebase Database */
-      let message = { text: snapshot.val(), id: snapshot.key };
-      this.setState({ messages: [message].concat(this.state.messages) });
+
+  // Configure FirebaseUI.
+  uiConfig = {
+    // Popup signin flow rather than redirect flow.
+    signInFlow: 'popup',
+    // We will display Google and Facebook as auth providers.
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+      // Avoid redirects after sign-in.
+      signInSuccessWithAuthResult: () => false
+    }
+  };
+
+  // Listen to the Firebase Auth state and set the local state.
+  componentDidMount() {
+    this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
+        (user) => this.setState({isSignedIn: !!user})
+    );
+  }
+
+  // Make sure we un-register Firebase observers when the component unmounts.
+  componentWillUnmount() {
+    this.unregisterAuthObserver();
+  }
+
+  handleChange (e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+
+    console.log(this.state)
+  }
+
+  handleSubmit (e) {
+    e.preventDefault()
+
+    this.setState({
+      isSignedIn: true,
+      email: '',
+      password: ''
     })
   }
-  addMessage(e){
-    e.preventDefault(); // <- prevent form submit from reloading the page
-    /* Send the message to Firebase */
-    fire.database().ref('messages').push( this.inputEl.value );
-    this.inputEl.value = ''; // <- clear the input
-  }
+
   render() {
+    if (!this.state.isSignedIn) {
+      return (
+        <div>
+          <h1>LogChimp</h1>
+          <p>Please sign-in:</p>
+
+          <form onSubmit={this.handleSubmit}>
+            <div>
+              <label htmlFor="email">
+                <small>Email</small>
+              </label>
+              <input name="email" type="text" value={this.state.email} onChange={this.handleChange} />
+            </div>
+            <div>
+              <label htmlFor="password">
+                <small>Password</small>
+              </label>
+              <input name="password" type="password" value={this.state.email} onChange={this.handleChange} />
+            </div>
+            <div>
+              <button type="submit">Sign In</button>
+            </div>
+          </form>
+
+          <h2>Create An Account</h2>
+          <Link to="/signup">Sign Up</Link>
+
+          <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={fire.auth()}/>
+        </div>
+      );
+    }
+
     return (
-      <form onSubmit={this.addMessage.bind(this)}>
-        <input type="text" ref={ el => this.inputEl = el }/>
-        <input type="submit"/>
-        <ul>
-          { /* Render the list of messages */
-            this.state.messages.map( message => <li key={message.id}>{message.text}</li> )
-          }
-        </ul>
-      </form>
+      <div>
+        <h1>LogChimp</h1>
+        <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
+        <button onClick={() => firebase.auth().signOut()}>Sign-out</button>
+      </div>
     );
   }
 }
-
-export default App;
