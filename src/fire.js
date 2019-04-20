@@ -1,5 +1,6 @@
 import firebase from 'firebase'
 
+// Configure Firebase.
 var config = {
     apiKey: "AIzaSyCrwbikbBSM0M8yFBXtdFvwOZko_kq5GZE",
     authDomain: "log-chimp-7f4d1.firebaseapp.com",
