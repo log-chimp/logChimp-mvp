@@ -1,18 +1,20 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import firebase from 'firebase'
-import fire from './fire'
+import fire from '../fire'
+import Button from 'react-bootstrap/Button'
 
-export default class App extends React.Component {
+
+export default class SignUp extends React.Component {
   // The component's Local state.
   constructor () {
     super()
-    
+
     this.state = {
-      isSignedIn: false, // Local signed-in state.
       email: '',
-      password: ''
+      password: '',
+      isSignedIn: false
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -57,52 +59,48 @@ export default class App extends React.Component {
   handleSubmit (e) {
     e.preventDefault()
 
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+    });
+
     this.setState({
-      isSignedIn: true,
-      email: '',
-      password: ''
+      isSignedIn: true
     })
   }
 
   render() {
-    if (!this.state.isSignedIn) {
       return (
         <div>
-          <h1>LogChimp</h1>
-          <p>Please sign-in:</p>
+      {this.state.isSignedIn ?
+        <Redirect to='/' /> :
+        <div>
+        <h1>LogChimp</h1>
+        <p>Create an account with your email and password</p>
 
-          <form onSubmit={this.handleSubmit}>
-            <div>
-              <label htmlFor="email">
-                <small>Email</small>
-              </label>
-              <input name="email" type="text" value={this.state.email} onChange={this.handleChange} />
-            </div>
-            <div>
-              <label htmlFor="password">
-                <small>Password</small>
-              </label>
-              <input name="password" type="password" value={this.state.email} onChange={this.handleChange} />
-            </div>
-            <div>
-              <button type="submit">Sign In</button>
-            </div>
-          </form>
-
-          <h2>Create An Account</h2>
-          <Link to="/signup">Sign Up</Link>
-
-          <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={fire.auth()}/>
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input name="email" type="text" value={this.state.email} onChange={this.handleChange} />
+          </div>
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" value={this.state.password} onChange={this.handleChange} />
+          </div>
+          <div>
+            <Button type="submit">Sign Up</Button>
+          </div>
+        </form>
+        <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={fire.auth()}/>
+        </div>
+      }
         </div>
       );
-    }
-
-    return (
-      <div>
-        <h1>LogChimp</h1>
-        <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
-        <button onClick={() => firebase.auth().signOut()}>Sign-out</button>
-      </div>
-    );
   }
 }
