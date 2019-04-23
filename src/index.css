@@ -27,6 +27,16 @@ h1 {
   margin: 41px
 }
 
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  font-size: 3em;
+  font-style: italic;
+  color: rgb(228, 211, 176);
+  letter-spacing: -1px;
+  margin: 41px
+}
+
 p {
   text-align: center;
   margin: 10px;
@@ -52,4 +62,8 @@ a:hover {
   color: rgb(117, 117, 117);
   text-transform: uppercase;
   text-decoration: none
+}
+
+.goals {
+  text-align: center
 }
