@@ -5,8 +5,6 @@ import '../index.css'
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav'
 
-
-
 export default class Home extends React.Component {
   constructor() {
     super()
@@ -31,22 +29,21 @@ export default class Home extends React.Component {
       <div>
       { !this.state.isSignedIn ?
         <div>
-        <Nav className="justify-content-end" variant="pills">
-        <Nav.Item>
-        <Nav.Link href="/signin">Sign In</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-        <Nav.Link href="/signup">Create an account</Nav.Link>
-        </Nav.Item>
-        </Nav>
-        <h1>Welcome to LogChimp</h1>
+          <Nav className="justify-content-end">
+            <Nav.Item>
+              <Nav.Link href="/signin">Sign In</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="/signup">Create An Account</Nav.Link>
+            </Nav.Item>
+          </Nav>
+          <h1>Welcome to LogChimp!</h1>
         </div> :
         <div>
-        <Button onClick={() => firebase.auth().signOut()}>Sign out</Button>
-        <h1>Welcome back {firebase.auth().currentUser.email}</h1>
+          <Button onClick={() => firebase.auth().signOut()}>Sign out</Button>
+          <h1>Welcome back {firebase.auth().currentUser.email}!</h1>
         </div>
       }
-
       </div>
     )
   }

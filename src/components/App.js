@@ -9,15 +9,13 @@ export default class App extends Component {
   render () {
     return (
       <div>
-      <Switch>
-    <Route exact path="/" component={Home} />
-    <Route path="/signin" component={SignIn} />
-    <Route path="/signup" component={SignUp} />
-    </Switch>
-  </div>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
+        </Switch>
+      </div>
     )
 
   }
 }
-
-// export default App;

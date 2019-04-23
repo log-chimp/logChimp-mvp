@@ -6,9 +6,50 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(120, 146, 122);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: normal;
+  font-size: 0.9em
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  font-size: 5em;
+  font-style: italic;
+  color: rgb(228, 211, 176);
+  letter-spacing: -3px;
+  margin: 41px
+}
+
+p {
+  text-align: center;
+  margin: 10px;
+  font-size: 1.5em;
+  /* color: rgb(117, 117, 117) */
+}
+
+.signin {
+  text-align: center
+}
+
+input {
+  margin: 10px;
+  width: 370px
+}
+
+a {
+  color: #FFF;
+  font-size: 18px
+}
+
+a:hover {
+  color: rgb(117, 117, 117);
+  text-transform: uppercase;
+  text-decoration: none
 }
