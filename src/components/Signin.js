@@ -4,9 +4,18 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import firebase from 'firebase'
 import fire from '../fire'
 import '../index.css'
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
+import styled from 'styled-components'
 
-
+const Button = styled.button`
+  background: rgb(228,211,176);
+  color: rgb(117, 117, 117);
+  margin: 1em;
+  padding: 7px;
+  width: 370px;
+  border-radius: 25px;
+  border: none;
+`
 
 export default class SignIn extends React.Component {
   // The component's Local state.
@@ -76,28 +85,28 @@ export default class SignIn extends React.Component {
         <div>
         { this.state.isSignedIn ? <Redirect to='/' /> :
         <div>
-        <h1>LogChimp</h1>
-        <div>
-        <p>Please sign-in:</p>
+        <Link to="/"><h1>LogChimp</h1></Link>
+        <div className="signin">
+        <h3>Please sign-in:</h3>
 
         <form onSubmit={this.handleSubmit}>
           <div>
-            <label htmlFor="email">
+            {/* <label htmlFor="email">
               <small>Email</small>
-            </label>
-            <input name="email" type="text" value={this.state.email} onChange={this.handleChange} />
+            </label> */}
+            <input name="email" type="text" value={this.state.email} placeholder="E-mail" onChange={this.handleChange} />
           </div>
           <div>
-            <label htmlFor="password">
+            {/* <label htmlFor="password">
               <small>Password</small>
-            </label>
-            <input name="password" type="password" value={this.state.password} onChange={this.handleChange} />
+            </label> */}
+            <input name="password" type="password" value={this.state.password} placeholder="Password" onChange={this.handleChange} />
           </div>
           <div>
-            <Button type="submit">Sign In</Button>
+            <Button variant="light" type="submit">Sign In</Button>
           </div>
         </form>
-        <h2>Don't have an account yet?</h2>
+        <h3>Don't have an account yet?</h3>
         <Link to="/signup">Sign Up</Link>
         </div>
       <div>
