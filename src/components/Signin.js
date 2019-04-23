@@ -87,7 +87,7 @@ export default class SignIn extends React.Component {
         <div>
         <Link to="/"><h1>LogChimp</h1></Link>
         <div className="signin">
-        <h3>Please sign-in:</h3>
+        <h4>Please sign-in:</h4>
 
         <form onSubmit={this.handleSubmit}>
           <div>
@@ -106,7 +106,7 @@ export default class SignIn extends React.Component {
             <Button variant="light" type="submit">Sign In</Button>
           </div>
         </form>
-        <h3>Don't have an account yet?</h3>
+        <h4>Don't have an account yet?</h4>
         <Link to="/signup">Sign Up</Link>
         </div>
       <div>
