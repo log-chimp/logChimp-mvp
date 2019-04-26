@@ -91,7 +91,6 @@ export default class SignIn extends React.Component {
   render() {
     const { email, password, error } = this.state;
 
-    const isInvalid = password === "" || email === "";
     return (
       <div>
         {this.state.isSignedIn ? (
