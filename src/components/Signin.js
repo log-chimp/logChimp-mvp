@@ -8,8 +8,8 @@ import '../index.css'
 import styled from 'styled-components'
 
 const Button = styled.button`
-  background: rgb(228,211,176);
-  color: rgb(117, 117, 117);
+  background: #FF7A5A;
+  color: #FFF;
   margin: 1em;
   padding: 7px;
   width: 370px;
@@ -73,6 +73,12 @@ export default class SignIn extends React.Component {
     firebase.auth().onAuthStateChanged(
       (user) => this.setState({isSignedIn: !!user}))
 
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
+
     this.setState({
       email: '',
       password: ''
@@ -106,7 +112,7 @@ export default class SignIn extends React.Component {
             <Button variant="light" type="submit">Sign In</Button>
           </div>
         </form>
-        <h4>Don't have an account yet?</h4>
+        <h4>Don't have an account?</h4>
         <Link to="/signup">Sign Up</Link>
         </div>
       <div>

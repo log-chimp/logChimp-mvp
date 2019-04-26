@@ -6,7 +6,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(120, 146, 122);
   font-family: 'Montserrat', sans-serif;
   font-weight: normal;
   font-size: 0.9em
@@ -22,9 +21,13 @@ h1 {
   text-align: center;
   font-size: 5em;
   font-style: italic;
-  color: rgb(228, 211, 176);
+  color: #8ED2C9;
   letter-spacing: -3px;
   margin: 41px
+}
+
+h2 {
+  color: #FF7A5A
 }
 
 h3 {
@@ -32,9 +35,13 @@ h3 {
   text-align: center;
   font-size: 3em;
   font-style: italic;
-  color: rgb(228, 211, 176);
+  color: #FFB85F;
   letter-spacing: -1px;
   margin: 41px
+}
+
+h4 {
+  color: #FFB85F
 }
 
 p {
@@ -49,17 +56,25 @@ p {
 }
 
 input {
-  margin: 10px;
-  width: 370px
+  width: 370px;
+  padding: 12px;
+  margin: 6px 0 4px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  color: #000;
+  font-size: 12px;
+  line-height: normal;
+  box-sizing: border-box;
+  border-radius: 2px
 }
 
 a {
-  color: #FFF;
+  color: rgb(124, 124, 124);
   font-size: 18px
 }
 
 a:hover {
-  color: rgb(117, 117, 117);
+  color: rgb(197, 197, 197);
   text-transform: uppercase;
   text-decoration: none
 }

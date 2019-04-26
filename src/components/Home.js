@@ -7,8 +7,8 @@ import Nav from 'react-bootstrap/Nav'
 import styled from 'styled-components'
 
 const Button = styled.button`
-  background: rgb(228,211,176);
-  color: rgb(117,117,117);
+  background: #8ED2C9;
+  color: #FFF;
   margin: 1em;
   padding: 10px;
   width: 100px;
@@ -20,9 +20,14 @@ export default class Home extends React.Component {
     super()
 
     this.state = {
-      isSignedIn: false
+      isSignedIn: false,
+      goals: [],
+      goal: ''
     }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
+
   componentDidMount() {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
         (user) => this.setState({isSignedIn: !!user})
@@ -31,6 +36,22 @@ export default class Home extends React.Component {
 
   componentWillUnmount() {
     this.unregisterAuthObserver();
+  }
+
+  handleChange (e) {
+    this.setState({
+      goal: e.target.value
+    })
+
+    console.log(this.state)
+  }
+
+  handleClick (e) {
+    e.preventDefault()
+
+    this.setState({
+      goal: ''
+    })
   }
 
   render() {
@@ -56,8 +77,8 @@ export default class Home extends React.Component {
           </div>
           <div className="goals">
             <h2>Goals</h2>
-            <input type="text" placeholder="Goal" />
-            <Button>Add Goal</Button>
+            <input type="text" placeholder="Goal" value={this.state.goal} onChange={this.handleChange} />
+            <Button onClick={this.handleClick}>Add Goal</Button>
           </div>
         </div>
       }
