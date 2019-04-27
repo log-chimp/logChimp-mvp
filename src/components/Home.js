@@ -5,6 +5,7 @@ import '../index.css'
 import Nav from 'react-bootstrap/Nav'
 import styled from 'styled-components'
 import { HeatMap } from './Heatmap'
+import About from './About.js'
 
 const Button = styled.button`
   background: #8ED2C9;
@@ -82,6 +83,7 @@ export default class Home extends React.Component {
             </Nav.Item>
           </Nav>
           <h1>Welcome to LogChimp!</h1>
+          <About/>
         </div> :
         <div>
           <div>
