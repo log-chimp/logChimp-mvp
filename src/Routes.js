@@ -4,7 +4,6 @@ import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import App from './components/App'
 import SignIn from './Signin'
 
-
 const routing = (
   <Router>
   <div>

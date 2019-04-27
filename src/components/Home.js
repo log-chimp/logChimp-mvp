@@ -5,6 +5,7 @@ import '../index.css'
 // import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav'
 import styled from 'styled-components'
+import { HeatMap } from './Heatmap'
 
 const Button = styled.button`
   background: #8ED2C9;
@@ -22,7 +23,8 @@ export default class Home extends React.Component {
     this.state = {
       isSignedIn: false,
       goals: [],
-      goal: ''
+      goal: '',
+      email: '',
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
@@ -32,6 +34,8 @@ export default class Home extends React.Component {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
         (user) => this.setState({isSignedIn: !!user})
     );
+
+    // this.setState({email : firebase.auth().currentUser.email})
   }
 
   componentWillUnmount() {
@@ -75,6 +79,7 @@ export default class Home extends React.Component {
             <Button onClick={() => firebase.auth().signOut()}>Sign out</Button>
             <h3>Welcome back {firebase.auth().currentUser.email}!</h3>
           </div>
+          <HeatMap />
           <div className="goals">
             <h2>Goals</h2>
             <input type="text" placeholder="Goal" value={this.state.goal} onChange={this.handleChange} />
