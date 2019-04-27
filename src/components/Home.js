@@ -42,6 +42,18 @@ export default class Home extends React.Component {
     let goal = { text: snapshot.val(), id: snapshot.key };
     this.setState({ goals: [goal].concat(this.state.goals) });
      })
+
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ email: user.email, id: user.uid})
+        console.log(user.uid, 'user');
+
+        firebase.database().ref('users/' + this.state.id).set({
+          email: this.state.email,
+        });
+      }
+    });
   }
 
   componentWillUnmount() {
@@ -61,6 +73,10 @@ export default class Home extends React.Component {
 
      /* Send the goal to Firebase */
      fire.database().ref('goals').push(this.inputEl.value);
+
+     firebase.database().ref('users/' + this.state.id + '/goals').push({
+      goal: this.inputEl.value,
+    });
 
     this.setState({
       goal: ''
