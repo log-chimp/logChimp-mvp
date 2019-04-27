@@ -100,6 +100,7 @@ export default class SignIn extends React.Component {
             <Link to="/">
               <h1>LogChimp</h1>
             </Link>
+          {error && <p>Invalid e-mail or password</p>}
             <div className="signin">
               <h4>Please sign-in:</h4>
 
@@ -111,7 +112,7 @@ export default class SignIn extends React.Component {
                   <input
                     name="email"
                     type="text"
-                    value={this.state.email}
+                    value={email}
                     placeholder="E-mail"
                     onChange={this.handleChange}
                   />
@@ -123,7 +124,7 @@ export default class SignIn extends React.Component {
                   <input
                     name="password"
                     type="password"
-                    value={this.state.password}
+                    value={password}
                     placeholder="Password"
                     onChange={this.handleChange}
                   />
@@ -132,7 +133,6 @@ export default class SignIn extends React.Component {
                   <Button variant="light" type="submit">
                     Sign In
                   </Button>
-                  {error && <p>{error.message}</p>}
                 </div>
               </form>
               <h4>Don't have an account?</h4>

@@ -25,7 +25,8 @@ export default class SignIn extends React.Component {
     this.state = {
       isSignedIn: false, // Local signed-in state.
       email: '',
-      password: ''
+      password: '',
+      error: null
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -73,26 +74,26 @@ export default class SignIn extends React.Component {
     firebase.auth().onAuthStateChanged(
       (user) => this.setState({isSignedIn: !!user}))
 
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-    });
-
-    this.setState({
-      email: '',
-      password: ''
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    .then(() => {
+      this.setState({ email: "", password: "", error: null });
     })
-
+    .catch(error => {
+      this.setState({
+        error: error
+      });
+    });
   }
 
   render() {
+      const { email, password, error} = this.state
       return (
         <div>
         { this.state.isSignedIn ? <Redirect to='/' /> :
         <div>
         <Link to="/"><h1>LogChimp</h1></Link>
         <div className="signin">
+        {error && <p>Account already exists</p>}
         <h4>Create An Account</h4>
 
         <form onSubmit={this.handleSubmit}>
@@ -100,13 +101,13 @@ export default class SignIn extends React.Component {
             {/* <label htmlFor="email">
               <small>Email</small>
             </label> */}
-            <input name="email" type="text" value={this.state.email} placeholder="E-mail" onChange={this.handleChange} />
+            <input name="email" type="text" value={email} placeholder="E-mail" onChange={this.handleChange} />
           </div>
           <div>
             {/* <label htmlFor="password">
               <small>Password</small>
             </label> */}
-            <input name="password" type="password" value={this.state.password} placeholder="Password" onChange={this.handleChange} />
+            <input name="password" type="password" value={password} placeholder="Password" onChange={this.handleChange} />
           </div>
           <div>
             <Button variant="light" type="submit">Sign Up</Button>
