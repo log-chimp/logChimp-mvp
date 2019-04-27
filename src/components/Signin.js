@@ -93,9 +93,9 @@ export default class SignIn extends React.Component {
 
   render() {
     const { email, password, error } = this.state;
-    const rating = fire.database();
+    const rating = this.props.rating;
 
-    const messages = this.state.message[rating] || "";
+    const messages = this.state.message[rating - 1] || "";
     return (
       <div>
         {this.state.isSignedIn ? (

@@ -27,7 +27,8 @@ export default class Home extends React.Component {
       goals: [],
       goal: "",
       email: "",
-      rating: 2
+      rating: 1,
+      showSignUp: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.addGoal = this.addGoal.bind(this);
@@ -118,7 +119,7 @@ export default class Home extends React.Component {
       .ref("stars")
       .set(nextValue);
 
-    this.setState({ rating: nextValue });
+    this.setState({ rating: nextValue, showSignUp: true });
   }
 
   render() {
@@ -135,21 +136,28 @@ export default class Home extends React.Component {
                 <Nav.Link href="/signup">Create An Account</Nav.Link>
               </Nav.Item>
             </Nav>
-            <h1>Welcome to LogChimp!</h1>
-            <div>
-              <Link to="/signin">
-                <h4>How are you feeling today?</h4>
-                <StarRatingComponent
-                  name="rating"
-                  starCount={3}
-                  starColor="#590546"
-                  emptyStarColor="#16105136"
-                  value={rating}
-                  onStarClick={this.onStarClick.bind(this)}
-                  className="reviewratingstar"
-                />
-              </Link>
-            </div>
+            {this.state.showSignUp ? (
+              <SignIn rating={this.state.rating} />
+            ) : (
+              <div>
+                <h1>Welcome to LogChimp!</h1>
+                <div>
+                  {/* <Link to="/signin"> */}
+                  <h4>How are you feeling today?</h4>
+                  <StarRatingComponent
+                    name="rating"
+                    starCount={3}
+                    starColor="#590546"
+                    emptyStarColor="#16105136"
+                    value={rating}
+                    onStarClick={this.onStarClick.bind(this)}
+                    className="reviewratingstar"
+                  />
+                  {/* {this.state.showSignUp && <SignIn rating={this.state.rating} />} */}
+                  {/* </Link> */}
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <div>
