@@ -1,8 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import firebase from 'firebase'
+import fire from '../fire'
 import '../index.css'
-// import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav'
 import styled from 'styled-components'
 import { HeatMap } from './Heatmap'
@@ -27,7 +26,7 @@ export default class Home extends React.Component {
       email: '',
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.addGoal = this.addGoal.bind(this)
   }
 
   componentDidMount() {
@@ -36,6 +35,13 @@ export default class Home extends React.Component {
     );
 
     // this.setState({email : firebase.auth().currentUser.email})
+    /* Create reference to goals in Firebase Database */
+    let goalsRef = fire.database().ref('goals').orderByKey().limitToLast(100);
+    goalsRef.on('child_added', snapshot => {
+    /* Update React state when goal is added at Firebase Database */
+    let goal = { text: snapshot.val(), id: snapshot.key };
+    this.setState({ goals: [goal].concat(this.state.goals) });
+     })
   }
 
   componentWillUnmount() {
@@ -50,8 +56,11 @@ export default class Home extends React.Component {
     console.log(this.state)
   }
 
-  handleClick (e) {
+  addGoal (e) {
     e.preventDefault()
+
+     /* Send the goal to Firebase */
+     fire.database().ref('goals').push(this.inputEl.value);
 
     this.setState({
       goal: ''
@@ -82,8 +91,11 @@ export default class Home extends React.Component {
           <HeatMap />
           <div className="goals">
             <h2>Goals</h2>
-            <input type="text" placeholder="Goal" value={this.state.goal} onChange={this.handleChange} />
-            <Button onClick={this.handleClick}>Add Goal</Button>
+            <input type="text" placeholder="Start typing..." value={this.state.goal} onChange={this.handleChange} ref={el => this.inputEl = el} />
+            <Button onClick={this.addGoal}>Add Goal</Button>
+            {
+              this.state.goals.map(goal => <li key={goal.id}>{goal.text}</li>)
+            }
           </div>
         </div>
       }
