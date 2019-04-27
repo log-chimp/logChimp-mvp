@@ -4,6 +4,7 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from "firebase";
 import fire from "../fire";
 import "../index.css";
+
 // import Button from 'react-bootstrap/Button';
 import styled from "styled-components";
 
@@ -26,7 +27,9 @@ export default class SignIn extends React.Component {
       isSignedIn: false, // Local signed-in state.
       email: "",
       password: "",
-      error: null
+      error: null,
+      rating: null,
+      message: ["Get Well Soon!", "Have some rest!", "It's a beautiful day!"]
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -90,7 +93,9 @@ export default class SignIn extends React.Component {
 
   render() {
     const { email, password, error } = this.state;
+    const rating = fire.database();
 
+    const messages = this.state.message[rating] || "";
     return (
       <div>
         {this.state.isSignedIn ? (
@@ -100,10 +105,10 @@ export default class SignIn extends React.Component {
             <Link to="/">
               <h1>LogChimp</h1>
             </Link>
-          {error && <p>Invalid e-mail or password</p>}
+            {error && <p>Invalid e-mail or password</p>}
             <div className="signin">
               <h4>Please sign-in:</h4>
-
+              {messages.length ? <h6>{messages}</h6> : null}
               <form onSubmit={this.handleSubmit}>
                 <div>
                   {/* <label htmlFor="email">
@@ -129,12 +134,14 @@ export default class SignIn extends React.Component {
                     onChange={this.handleChange}
                   />
                 </div>
+
                 <div>
                   <Button variant="light" type="submit">
                     Sign In
                   </Button>
                 </div>
               </form>
+
               <h4>Don't have an account?</h4>
               <Link to="/signup">Sign Up</Link>
             </div>
