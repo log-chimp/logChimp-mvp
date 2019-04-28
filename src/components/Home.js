@@ -294,9 +294,9 @@ export default class Home extends React.Component {
                 </div>
 
                 <div className="live-feed">
-                    <h4>Live-Feed</h4>
+                    <h4 className="live-feed-header">Live-Feed</h4>
                     {this.state.symptoms.map(symptom => (
-                      <ul key={symptom.id}>{symptom.text.symptom}</ul>
+                      <ul key={symptom.id}>{symptom.text.symptom} - <span className="midtown">Midtown, NY</span></ul>
                     ))}
                 </div>
             </div>

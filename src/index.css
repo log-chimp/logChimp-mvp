@@ -98,6 +98,11 @@ a:hover {
   justify-content: space-around
 }
 
-.symptom-header {
+.symptom-header, .live-feed-header {
   text-align: center
+}
+
+.midtown {
+  font-size: 10px;
+  color: #8ed2c9
 }
