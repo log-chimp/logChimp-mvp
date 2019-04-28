@@ -79,10 +79,10 @@ a:hover {
   text-decoration: none;
 }
 
-.goals,
+/* .goals,
 .goals-container {
   text-align: center;
-}
+} */
 
 .starcomp {
   text-align: center;
@@ -91,4 +91,13 @@ a:hover {
 .reviewratingstar {
   text-align: center;
   margin: 3em 6em;
+}
+
+.container {
+  display:flex;
+  justify-content: space-around
+}
+
+.symptom-header {
+  text-align: center
 }
