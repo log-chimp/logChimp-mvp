@@ -79,6 +79,6 @@ a:hover {
   text-decoration: none
 }
 
-.goals {
+.goals, .goals-container {
   text-align: center
 }

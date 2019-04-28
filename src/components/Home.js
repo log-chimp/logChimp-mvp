@@ -193,10 +193,8 @@ export default class Home extends React.Component {
               <h3>Welcome back {firebase.auth().currentUser.email}!</h3>
             </div>
             <HeatMap />
-            {
-              individualGoals.length &&
-              <div className="goals">
-                <h2>Goals</h2>
+            <div className="goals-container">
+              <h2>Goals</h2>
                 <input
                   type="text"
                   placeholder="Start typing..."
@@ -205,6 +203,10 @@ export default class Home extends React.Component {
                   ref={el => (this.inputEl = el)}
                 />
                 <Button onClick={this.addGoal}>Add Goal</Button>
+            </div>
+            {
+              individualGoals.length &&
+              <div className="goals">
                 {individualGoals.map(goal => (
                   <li key={goal.id}>{goal.text.goal}</li>
                 ))}
