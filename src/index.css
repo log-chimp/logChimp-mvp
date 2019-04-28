@@ -6,9 +6,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: normal;
-  font-size: 0.9em
+  font-size: 0.9em;
 }
 
 code {
@@ -17,31 +17,31 @@ code {
 }
 
 h1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   text-align: center;
   font-size: 5em;
   font-style: italic;
-  color: #8ED2C9;
+  color: #8ed2c9;
   letter-spacing: -3px;
-  margin: 41px
+  margin: 41px;
 }
 
 h2 {
-  color: #FF7A5A
+  color: #ff7a5a;
 }
 
 h3 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   text-align: center;
   font-size: 3em;
   font-style: italic;
-  color: #FFB85F;
+  color: #ffb85f;
   letter-spacing: -1px;
-  margin: 41px
+  margin: 41px;
 }
 
 h4 {
-  color: #FFB85F
+  color: #ffb85f;
 }
 
 p {
@@ -52,7 +52,7 @@ p {
 }
 
 .signin {
-  text-align: center
+  text-align: center;
 }
 
 input {
@@ -65,20 +65,31 @@ input {
   font-size: 12px;
   line-height: normal;
   box-sizing: border-box;
-  border-radius: 2px
+  border-radius: 2px;
 }
 
 a {
   color: rgb(124, 124, 124);
-  font-size: 18px
+  font-size: 18px;
 }
 
 a:hover {
   color: rgb(197, 197, 197);
   text-transform: uppercase;
-  text-decoration: none
+  text-decoration: none;
 }
 
-.goals, .goals-container {
-  text-align: center
+.goals,
+.goals-container {
+  text-align: center;
+}
+
+.starcomp {
+  text-align: center;
+}
+
+.reviewratingstar {
+  text-align: center;
+
+  margin: 3em 6em;
 }
