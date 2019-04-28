@@ -3,7 +3,6 @@ import firebase from "firebase";
 import fire from "../fire";
 import dateFormat from 'dateformat';
 import "../index.css";
-import { Link, Route } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import styled from "styled-components";
 import StarRatingComponent from "react-star-rating-component";
@@ -29,11 +28,14 @@ export default class Home extends React.Component {
       goal: "",
       email: "",
       rating: 1,
-      showSignUp: false
+      showSignUp: false,
+      sickDays: []
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.addGoal = this.addGoal.bind(this);
     this.onStarClick = this.onStarClick.bind(this);
+    this.heatMapClick = this.heatMapClick.bind(this)
   }
 
   componentDidMount() {
@@ -52,6 +54,18 @@ export default class Home extends React.Component {
       /* Update React state when goal is added at Firebase Database */
       let goal = { text: snapshot.val(), id: snapshot.key };
       this.setState({ goals: [goal].concat(this.state.goals) });
+    });
+    
+
+    let sickDaysRef = fire
+    .database()
+    .ref("sickDays")
+    .orderByKey()
+    .limitToLast(100);
+    sickDaysRef.on("child_added", snapshot => {
+      /* Update React state when goal is added at Firebase Database */
+      let sickDay = { text: snapshot.val(), id: snapshot.key };
+      this.setState({ sickDays: [sickDay].concat(this.state.sickDays) });
     });
 
   //   let indiv = fire
@@ -110,6 +124,39 @@ export default class Home extends React.Component {
     });
   }
 
+  heatMapClick () {
+    let rawDate = dateFormat(new Date(), "isoDateTime");
+    let date = rawDate.split('T')
+    let finalDate = date[0];
+    let time = date[1].split('-')[0];
+
+    let data = {
+      "date": finalDate,
+      "total": 17164,
+      "details": [{
+        "name": "Project 1",
+        "date": `${finalDate} ${time}`,
+        "value": 9192
+      }, {
+        "name": "Project 2",
+        "date": `${finalDate} ${time}`,
+        "value": 6753
+      },
+      {
+        "name": "Project N",
+        "date": `${finalDate} ${time}`,
+        "value": 1219
+      }]
+    }
+
+    fire
+    .database()
+    .ref("sickDays")
+    .push(data)
+
+    console.log('SICK DAYS', this.state)
+  }
+
   addGoal(e) {
     e.preventDefault();
 
@@ -134,6 +181,7 @@ export default class Home extends React.Component {
 
     console.log(this.state);
   }
+
   onStarClick(nextValue, prevValue, name) {
     // this.setState({ rating: nextValue });
 
@@ -146,11 +194,11 @@ export default class Home extends React.Component {
   }
 
   render() {
-
     const individualGoals = this.state.goals.filter(goal => goal.text.userId === this.state.id);
-
-    console.log(individualGoals, 'blah');
+    const sickDays = this.state.sickDays.length > 1 && [this.state.sickDays[0].text]
     const { rating } = this.state;
+
+    console.log('WHAT AM I', sickDays)
     return (
       <div>
         {!this.state.isSignedIn ? (
@@ -192,7 +240,7 @@ export default class Home extends React.Component {
               </Button>
               <h3>Welcome back {firebase.auth().currentUser.email}!</h3>
             </div>
-            <HeatMap />
+            <HeatMap data={sickDays} heatMapClick={this.heatMapClick} />
             <div className="goals-container">
               <h2>Goals</h2>
                 <input

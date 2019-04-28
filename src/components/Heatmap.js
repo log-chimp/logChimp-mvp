@@ -1,7 +1,6 @@
 import React from 'react'
 import CalendarHeatmap from 'reactjs-calendar-heatmap'
 
-
 let data = [{
   "date": "2016-01-01",
   "total": 17164,
@@ -21,11 +20,19 @@ let data = [{
   }]
 }]
 
-export const HeatMap = () => (
-  <CalendarHeatmap
-  data={data}
-  color={'red'}
-  overview={'month'}
-  handler={null}>
-</CalendarHeatmap>
-)
+export const HeatMap = (props) => {
+  const {data, heatMapClick} = props
+
+  return (
+    <div>
+      { props.data && 
+    <CalendarHeatmap
+      data={data}
+      color={'red'}
+      overview={'month'}
+      handler={heatMapClick}>
+    </CalendarHeatmap>
+     }
+    </div>
+  )
+}
