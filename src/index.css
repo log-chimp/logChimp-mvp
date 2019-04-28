@@ -79,10 +79,10 @@ a:hover {
   text-decoration: none;
 }
 
-.goals,
+/* .goals,
 .goals-container {
   text-align: center;
-}
+} */
 
 .starcomp {
   text-align: center;
@@ -105,4 +105,18 @@ a:hover {
   height: 40em;
   width: 90vw;
   text-align: center;
+}
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.symptom-header,
+.live-feed-header {
+  text-align: center;
+}
+
+.midtown {
+  font-size: 10px;
+  color: #8ed2c9;
 }

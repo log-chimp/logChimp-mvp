@@ -25,8 +25,8 @@ export default class Home extends React.Component {
 
     this.state = {
       isSignedIn: false,
-      goals: [],
-      goal: "",
+      symptoms: [],
+      symptom: "",
       email: "",
       rating: 1,
       showSignUp: false,
@@ -46,15 +46,15 @@ export default class Home extends React.Component {
 
     // this.setState({email : firebase.auth().currentUser.email})
     /* Create reference to goals in Firebase Database */
-    let goalsRef = fire
+    let symptomsRef = fire
       .database()
-      .ref("goals")
+      .ref("symptoms")
       .orderByKey()
       .limitToLast(100);
-    goalsRef.on("child_added", snapshot => {
+    symptomsRef.on("child_added", snapshot => {
       /* Update React state when goal is added at Firebase Database */
-      let goal = { text: snapshot.val(), id: snapshot.key };
-      this.setState({ goals: [goal].concat(this.state.goals) });
+      let symptom = { text: snapshot.val(), id: snapshot.key };
+      this.setState({ symptoms: [symptom].concat(this.state.symptoms) });
     });
 
     let sickDaysRef = fire
@@ -120,7 +120,7 @@ export default class Home extends React.Component {
 
   handleChange(e) {
     this.setState({
-      goal: e.target.value
+      symptom: e.target.value
     });
   }
 
@@ -183,17 +183,17 @@ export default class Home extends React.Component {
     /* Send the goal to Firebase */
     fire
       .database()
-      .ref("goals")
+      .ref("symptoms")
       .push({
-        goal: this.inputEl.value,
+        symptom: this.inputEl.value,
         userId: this.state.id
       });
 
     firebase
       .database()
-      .ref("users/" + this.state.id + "/goals")
+      .ref("users/" + this.state.id + "/symptoms")
       .push({
-        goal: this.inputEl.value,
+        symptom: this.inputEl.value,
         id: this.state.id
       });
 
@@ -203,10 +203,8 @@ export default class Home extends React.Component {
       .push(data);
 
     this.setState({
-      goal: ""
+      symptom: ""
     });
-
-    console.log(this.state);
   }
 
   onStarClick(nextValue, prevValue, name) {
@@ -221,9 +219,10 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const individualGoals = this.state.goals.filter(
-      goal => goal.text.userId === this.state.id
+    const individualSymptoms = this.state.symptoms.filter(
+      symptom => symptom.text.userId === this.state.id
     );
+    const latestSymptoms = individualSymptoms.slice(0, 5);
     const sickDays = this.state.sickDays.length > 0 && [
       this.state.sickDays[0].text
     ];
@@ -281,26 +280,41 @@ export default class Home extends React.Component {
               <h3>Welcome back {firebase.auth().currentUser.email}!</h3>
             </div>
             <HeatMap data={sickDays} heatMapClick={this.heatMapClick} />
-            <div className="goals-container">
-              <h2>Symptoms</h2>
-              <input
-                type="text"
-                placeholder="What are your symptoms?"
-                value={this.state.goal}
-                onChange={this.handleChange}
-                ref={el => (this.inputEl = el)}
-              />
-              <Button className="symptoms" onClick={this.addGoal}>
-                Add Symptom
-              </Button>
-            </div>
-            {individualGoals.length && (
-              <div className="goals">
-                {individualGoals.map(goal => (
-                  <li key={goal.id}>{goal.text.goal}</li>
+            <div className="container">
+              <div className="symptoms-container">
+                <h2 className="symptom-header">Symptoms</h2>
+                <input
+                  type="text"
+                  placeholder="What are your symptoms?"
+                  value={this.state.symptom}
+                  onChange={this.handleChange}
+                  ref={el => (this.inputEl = el)}
+                />
+                <Button className="symptoms" onClick={this.addGoal}>
+                  Add Symptom
+                </Button>
+
+                {individualSymptoms.length > 0 && (
+                  <div className="goals">
+                    <h4>Latest Symptoms</h4>
+                    {latestSymptoms.length > 0 &&
+                      latestSymptoms.map(symptom => (
+                        <ul key={symptom.id}>{symptom.text.symptom}</ul>
+                      ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="live-feed">
+                <h4 className="live-feed-header">Live-Feed</h4>
+                {this.state.symptoms.map(symptom => (
+                  <ul key={symptom.id}>
+                    {symptom.text.symptom} -{" "}
+                    <span className="midtown">Midtown, NY</span>
+                  </ul>
                 ))}
               </div>
-            )}
+            </div>
           </div>
         )}
       </div>
