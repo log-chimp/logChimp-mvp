@@ -7,14 +7,14 @@ import Nav from "react-bootstrap/Nav";
 import styled from "styled-components";
 import StarRatingComponent from "react-star-rating-component";
 import { HeatMap } from "./Heatmap";
-import SignIn from "./Signin";
+import SignUp from "./Signup";
 
 const Button = styled.button`
   background: #8ed2c9;
   color: #fff;
   margin: 1em;
   padding: 10px;
-  width: 100px;
+  width: 162px;
   border: none;
 `;
 
@@ -242,12 +242,11 @@ export default class Home extends React.Component {
               </Nav.Item>
             </Nav>
             {this.state.showSignUp ? (
-              <SignIn rating={this.state.rating} />
+              <SignUp rating={this.state.rating} />
             ) : (
               <div>
                 <h1>Welcome to LogChimp!</h1>
                 <div>
-                  {/* <Link to="/signin"> */}
                   <h4 className="starcomp">How are you feeling today?</h4>
                   <div className="reviewratingstar">
                     <StarRatingComponent
@@ -277,12 +276,12 @@ export default class Home extends React.Component {
               <h2>Symptoms</h2>
               <input
                 type="text"
-                placeholder="Start typing..."
+                placeholder="What are your symptoms?"
                 value={this.state.goal}
                 onChange={this.handleChange}
                 ref={el => (this.inputEl = el)}
               />
-              <Button onClick={this.addGoal}>Add Symptom</Button>
+              <Button className="symptoms" onClick={this.addGoal}>Add Symptom</Button>
             </div>
             {individualGoals.length && (
               <div className="goals">
