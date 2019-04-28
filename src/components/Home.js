@@ -8,6 +8,7 @@ import styled from "styled-components";
 import StarRatingComponent from "react-star-rating-component";
 import { HeatMap } from "./Heatmap";
 import SignUp from "./Signup";
+// import { intro } from "./intro.png";
 
 const Button = styled.button`
   background: #8ed2c9;
@@ -246,6 +247,10 @@ export default class Home extends React.Component {
             ) : (
               <div>
                 <h1>Welcome to LogChimp!</h1>
+                <img
+                  className="logo"
+                  src="https://files.slack.com/files-pri/TJ244KB46-FHX2U4S2X/logchimplogo.png"
+                />
                 <div>
                   <h4 className="starcomp">How are you feeling today?</h4>
                   <div className="reviewratingstar">
@@ -259,6 +264,10 @@ export default class Home extends React.Component {
                       className="reviewratingstar"
                     />
                   </div>
+                  <img
+                    className="intro"
+                    src="https://files.slack.com/files-pri/TJ244KB46-FJAG5EUBH/screen_shot_2019-04-28_at_11.29.59_am.png"
+                  />
                 </div>
               </div>
             )}
@@ -281,7 +290,9 @@ export default class Home extends React.Component {
                 onChange={this.handleChange}
                 ref={el => (this.inputEl = el)}
               />
-              <Button className="symptoms" onClick={this.addGoal}>Add Symptom</Button>
+              <Button className="symptoms" onClick={this.addGoal}>
+                Add Symptom
+              </Button>
             </div>
             {individualGoals.length && (
               <div className="goals">

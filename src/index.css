@@ -92,3 +92,16 @@ a:hover {
   text-align: center;
   margin: 3em 6em;
 }
+
+.logo {
+  margin: 3em 6em;
+  height: 20em;
+  width: 90vw;
+  text-align: center;
+}
+.intro {
+  margin: 3em 6em;
+  height: 50em;
+  width: 90vw;
+  text-align: center;
+}
