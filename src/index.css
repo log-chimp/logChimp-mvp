@@ -86,6 +86,7 @@ a:hover {
 
 .starcomp {
   text-align: center;
+  color: #8ed2c9;
 }
 
 .reviewratingstar {
@@ -93,16 +94,29 @@ a:hover {
   margin: 3em 6em;
 }
 
+.logo {
+  margin: 2rem 16rem 2rem 20rem;
+  height: 10em;
+  width: 50vw;
+  text-align: center;
+}
+.intro {
+  margin: 3em 6em;
+  height: 40em;
+  width: 90vw;
+  text-align: center;
+}
 .container {
-  display:flex;
-  justify-content: space-around
+  display: flex;
+  justify-content: space-around;
 }
 
-.symptom-header, .live-feed-header {
-  text-align: center
+.symptom-header,
+.live-feed-header {
+  text-align: center;
 }
 
 .midtown {
   font-size: 10px;
-  color: #8ed2c9
+  color: #8ed2c9;
 }

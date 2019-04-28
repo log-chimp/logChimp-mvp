@@ -8,6 +8,7 @@ import styled from "styled-components";
 import StarRatingComponent from "react-star-rating-component";
 import { HeatMap } from "./Heatmap";
 import SignUp from "./Signup";
+// import { intro } from "./intro.png";
 
 const Button = styled.button`
   background: #8ed2c9;
@@ -221,7 +222,7 @@ export default class Home extends React.Component {
     const individualSymptoms = this.state.symptoms.filter(
       symptom => symptom.text.userId === this.state.id
     );
-    const latestSymptoms = individualSymptoms.slice(0,5);
+    const latestSymptoms = individualSymptoms.slice(0, 5);
     const sickDays = this.state.sickDays.length > 0 && [
       this.state.sickDays[0].text
     ];
@@ -244,7 +245,11 @@ export default class Home extends React.Component {
               <SignUp rating={this.state.rating} />
             ) : (
               <div>
-                <h1>Welcome to LogChimp!</h1>
+                {/* <h1>Welcome to LogChimp!</h1> */}
+                <img
+                  className="logo"
+                  src="https://files.slack.com/files-pri/TJ244KB46-FHX2U4S2X/logchimplogo.png"
+                />
                 <div>
                   <h4 className="starcomp">How are you feeling today?</h4>
                   <div className="reviewratingstar">
@@ -258,6 +263,10 @@ export default class Home extends React.Component {
                       className="reviewratingstar"
                     />
                   </div>
+                  <img
+                    className="intro"
+                    src="https://files.slack.com/files-pri/TJ244KB46-FJAG5EUBH/screen_shot_2019-04-28_at_11.29.59_am.png"
+                  />
                 </div>
               </div>
             )}
@@ -281,24 +290,30 @@ export default class Home extends React.Component {
                   onChange={this.handleChange}
                   ref={el => (this.inputEl = el)}
                 />
-                <Button className="symptoms" onClick={this.addGoal}>Add Symptom</Button>
-    
+                <Button className="symptoms" onClick={this.addGoal}>
+                  Add Symptom
+                </Button>
+
                 {individualSymptoms.length > 0 && (
                   <div className="goals">
                     <h4>Latest Symptoms</h4>
-                    {latestSymptoms.length > 0 && latestSymptoms.map(symptom => (
-                      <ul key={symptom.id}>{symptom.text.symptom}</ul>
-                    ))}
+                    {latestSymptoms.length > 0 &&
+                      latestSymptoms.map(symptom => (
+                        <ul key={symptom.id}>{symptom.text.symptom}</ul>
+                      ))}
                   </div>
                 )}
-                </div>
+              </div>
 
-                <div className="live-feed">
-                    <h4 className="live-feed-header">Live-Feed</h4>
-                    {this.state.symptoms.map(symptom => (
-                      <ul key={symptom.id}>{symptom.text.symptom} - <span className="midtown">Midtown, NY</span></ul>
-                    ))}
-                </div>
+              <div className="live-feed">
+                <h4 className="live-feed-header">Live-Feed</h4>
+                {this.state.symptoms.map(symptom => (
+                  <ul key={symptom.id}>
+                    {symptom.text.symptom} -{" "}
+                    <span className="midtown">Midtown, NY</span>
+                  </ul>
+                ))}
+              </div>
             </div>
           </div>
         )}
