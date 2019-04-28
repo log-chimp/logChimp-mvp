@@ -86,6 +86,7 @@ a:hover {
 
 .starcomp {
   text-align: center;
+  color: #8ed2c9;
 }
 
 .reviewratingstar {
@@ -94,14 +95,14 @@ a:hover {
 }
 
 .logo {
-  margin: 3em 6em;
-  height: 20em;
-  width: 90vw;
+  margin: 2rem 16rem 2rem 20rem;
+  height: 10em;
+  width: 50vw;
   text-align: center;
 }
 .intro {
   margin: 3em 6em;
-  height: 50em;
+  height: 40em;
   width: 90vw;
   text-align: center;
 }

@@ -246,7 +246,7 @@ export default class Home extends React.Component {
               <SignUp rating={this.state.rating} />
             ) : (
               <div>
-                <h1>Welcome to LogChimp!</h1>
+                {/* <h1>Welcome to LogChimp!</h1> */}
                 <img
                   className="logo"
                   src="https://files.slack.com/files-pri/TJ244KB46-FHX2U4S2X/logchimplogo.png"
