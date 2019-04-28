@@ -25,11 +25,11 @@ export const HeatMap = (props) => {
 
   return (
     <div>
-      { props.data && 
+      { props.data &&
     <CalendarHeatmap
       data={data}
       color={'red'}
-      overview={'month'}
+      overview={'year'}
       handler={heatMapClick}>
     </CalendarHeatmap>
      }

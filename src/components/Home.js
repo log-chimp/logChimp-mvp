@@ -55,7 +55,7 @@ export default class Home extends React.Component {
       let goal = { text: snapshot.val(), id: snapshot.key };
       this.setState({ goals: [goal].concat(this.state.goals) });
     });
-    
+
 
     let sickDaysRef = fire
     .database()
@@ -149,16 +149,31 @@ export default class Home extends React.Component {
       }]
     }
 
-    fire
-    .database()
-    .ref("sickDays")
-    .push(data)
+    // fire
+    // .database()
+    // .ref("sickDays")
+    // .push(data)
 
     console.log('SICK DAYS', this.state)
   }
 
   addGoal(e) {
     e.preventDefault();
+
+    let rawDate = dateFormat(new Date(), "isoDateTime");
+    let date = rawDate.split('T')
+    let finalDate = date[0];
+    let time = date[1].split('-')[0];
+
+    let data = {
+      "date": finalDate,
+      "total": 17164,
+      "details": [{
+        "name": this.inputEl.value,
+        "date": `${finalDate} ${time}`,
+        "value": 9192
+      }]
+    }
 
     /* Send the goal to Firebase */
     fire
@@ -174,6 +189,11 @@ export default class Home extends React.Component {
       .push({
         goal: this.inputEl.value,
         id: this.state.id});
+
+    fire
+    .database()
+    .ref("sickDays")
+    .push(data)
 
     this.setState({
       goal: ""
@@ -195,7 +215,7 @@ export default class Home extends React.Component {
 
   render() {
     const individualGoals = this.state.goals.filter(goal => goal.text.userId === this.state.id);
-    const sickDays = this.state.sickDays.length > 1 && [this.state.sickDays[0].text]
+    const sickDays = this.state.sickDays.length > 0 && [this.state.sickDays[0].text]
     const { rating } = this.state;
 
     console.log('WHAT AM I', sickDays)
@@ -242,7 +262,7 @@ export default class Home extends React.Component {
             </div>
             <HeatMap data={sickDays} heatMapClick={this.heatMapClick} />
             <div className="goals-container">
-              <h2>Goals</h2>
+              <h2>Symptoms</h2>
                 <input
                   type="text"
                   placeholder="Start typing..."
@@ -250,7 +270,7 @@ export default class Home extends React.Component {
                   onChange={this.handleChange}
                   ref={el => (this.inputEl = el)}
                 />
-                <Button onClick={this.addGoal}>Add Goal</Button>
+                <Button onClick={this.addGoal}>Add Symptom</Button>
             </div>
             {
               individualGoals.length &&
